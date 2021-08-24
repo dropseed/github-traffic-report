@@ -1,0 +1,3 @@
+#!/bin/sh -e
+docker build -t github_traffic_report .
+docker run --env-file .env github_traffic_report "$@"

@@ -1,0 +1,4 @@
+#!/bin/sh -e
+echo "Loading .env variables..."
+set -o allexport; source .env; set +o allexport
+.venv/bin/python -m github_traffic_report "$@"

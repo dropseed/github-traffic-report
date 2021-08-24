@@ -1,0 +1,46 @@
+name: github-traffic-report
+description: Automatically update your GitHub Releases from CHANGELOG.md
+branding:
+  icon: trending-up
+  color: white
+inputs:
+  github_token:
+    description: "A token with access to the repos"
+    required: true
+  to_email:
+    description: Where to send the report (can be comma separated like an email "to" field)
+    required: true
+  smtp_from:
+    description: "SMTP from"
+    required: true
+  smtp_host:
+    description: "SMTP host"
+    required: true
+  smtp_port:
+    description: "SMTP port"
+    default: 587
+    required: false
+  smtp_username:
+    description: "SMTP username"
+    required: true
+  smtp_password:
+    description: "SMTP password"
+    required: true
+  repo_query:
+    description: A repo search query to find repos for the report (public repos in this org by default, use commas for multiple queries)
+    default: "org:${{ github.repository.owner }} is:public"
+    required: false
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - send
+    - ${{ inputs.repo_query }}
+  env:
+    GITHUB_TOKEN: ${{ inputs.github_token }}
+    REPORT_TO: ${{ inputs.to_email }}
+    REPORT_SMTP_FROM: ${{ inputs.smtp_from }}
+    REPORT_SMTP_HOST: ${{ inputs.smtp_host }}
+    REPORT_SMTP_PORT: ${{ inputs.smtp_port }}
+    REPORT_SMTP_USERNAME: ${{ inputs.smtp_username }}
+    REPORT_SMTP_PASSWORD: ${{ inputs.smtp_password }}

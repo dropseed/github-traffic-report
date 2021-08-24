@@ -1,0 +1,44 @@
+<table style="width: 100%; overflow: hidden; border-radius: .25rem; border-spacing: 0; border: 1px solid #e2e2e2;">
+  <thead>
+    <tr>
+        {% for heading in table.headers %}
+        <th style="border-bottom: 1px solid #dedede; padding: .5rem 1rem; background-color: #F3F4F6; {% if loop.index == 1 %}text-align: left;{% else %}text-align: right;{% endif %}">
+          {{ heading }}
+          {% if loop.index != 1 and table.subheader %}
+          <div style="color: #585858; font-weight: normal; font-size: .9em;">
+            {{ table.subheader }}
+          </div>
+          {% endif %}
+        </th>
+        {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+      {% for row in table.rows %}
+      <tr>
+          {% for cell in row %}
+          <td style="font-size: .875rem; padding: .25rem 1rem; background-color: #F9FAFB; {% if loop.index == 1 %}text-align: left;{% else %}text-align: right;{% endif %}">
+            {% if cell.url %}
+            <a href="{{ cell.url }}" style="color: #6490F0;">
+              {{ cell|truncate(60) }}
+            </a>
+            {% else %}
+              {% if cell.increased %}
+                <span style="color: #00C853; font-family: Helvetica, sans-serif;">↑</span>
+              {% elif cell.decreased %}
+                <span style="color: #D50000; font-family: Helvetica, sans-serif;">↓</span>
+              {% endif %}
+              {{ cell|truncate(60) }}
+            {% endif %}
+          </td>
+          {% endfor %}
+      </tr>
+      {% else %}
+      <tr>
+          <td colspan="{{ table.headers|length }}" style="font-size: .875rem; padding: 1rem .5rem; text-align: center; background-color: #F9FAFB; color: #585858; font-style: italic;">
+            No data available
+          </td>
+        </tr>
+      {% endfor %}
+  </tbody>
+</table>

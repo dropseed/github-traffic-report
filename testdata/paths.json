@@ -1,0 +1,62 @@
+[
+    {
+        "path": "/dropseed/django-admincharts",
+        "title": "GitHub - dropseed/django-admincharts: Add Chart.js visualizations to your Dja...",
+        "count": 38,
+        "uniques": 13
+    },
+    {
+        "path": "/dropseed/django-admincharts/actions/workflows/deps.yml",
+        "title": "Actions · dropseed/django-admincharts",
+        "count": 8,
+        "uniques": 1
+    },
+    {
+        "path": "/dropseed/django-admincharts/tree/master/admincharts",
+        "title": "django-admincharts/admincharts at master · dropseed/django-admincharts",
+        "count": 3,
+        "uniques": 3
+    },
+    {
+        "path": "/dropseed/django-admincharts/actions",
+        "title": "Actions · dropseed/django-admincharts",
+        "count": 3,
+        "uniques": 1
+    },
+    {
+        "path": "/dropseed/django-admincharts/blob/master/.github/workflows/deps.yml",
+        "title": "django-admincharts/deps.yml at master · dropseed/django-admincharts",
+        "count": 3,
+        "uniques": 1
+    },
+    {
+        "path": "/dropseed/django-admincharts/pull/9",
+        "title": "Update poetry.lock by deps-dropseed · Pull Request #9 · dropseed/django-admin...",
+        "count": 3,
+        "uniques": 1
+    },
+    {
+        "path": "/dropseed/django-admincharts/tree/master/.github/workflows",
+        "title": "django-admincharts/.github/workflows at master · dropseed/django-admincharts",
+        "count": 2,
+        "uniques": 1
+    },
+    {
+        "path": "/dropseed/django-admincharts/blob/0b5952fedbf7e4712f18f6c30c3fa81e32d2cc21/pyproject.toml",
+        "title": "django-admincharts/pyproject.toml at 0b5952fedbf7e4712f18f6c30c3fa81e32d2cc21...",
+        "count": 1,
+        "uniques": 1
+    },
+    {
+        "path": "/dropseed/django-admincharts/blob/51f5ac1b7caed0c6fb7a676bab113e668645753e/scripts/release",
+        "title": "django-admincharts/release at 51f5ac1b7caed0c6fb7a676bab113e668645753e · drop...",
+        "count": 1,
+        "uniques": 1
+    },
+    {
+        "path": "/dropseed/django-admincharts/blob/master/admincharts/static/admincharts/admincharts.js",
+        "title": "django-admincharts/admincharts.js at master · dropseed/django-admincharts",
+        "count": 1,
+        "uniques": 1
+    }
+]

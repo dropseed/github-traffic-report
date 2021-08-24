@@ -1,0 +1,8 @@
+/report.html
+.pytest_cache
+__pycache__
+/.venv
+/.vscode
+*.egg-info
+/dist
+/.env

@@ -1,0 +1,36 @@
+{
+    "count": 35,
+    "uniques": 13,
+    "clones": [
+        {
+            "timestamp": "2021-08-10T00:00:00Z",
+            "count": 12,
+            "uniques": 7
+        },
+        {
+            "timestamp": "2021-08-11T00:00:00Z",
+            "count": 1,
+            "uniques": 1
+        },
+        {
+            "timestamp": "2021-08-12T00:00:00Z",
+            "count": 1,
+            "uniques": 1
+        },
+        {
+            "timestamp": "2021-08-16T00:00:00Z",
+            "count": 5,
+            "uniques": 3
+        },
+        {
+            "timestamp": "2021-08-20T00:00:00Z",
+            "count": 5,
+            "uniques": 3
+        },
+        {
+            "timestamp": "2021-08-23T00:00:00Z",
+            "count": 11,
+            "uniques": 3
+        }
+    ]
+}

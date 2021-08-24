@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Traffic Report for {{ start_date.strftime("%b %d") }} to {{ end_date.strftime("%b %d") }}</title>
+</head>
+<body>
+    <div style="padding: 1rem; margin: 0 auto;">
+        <h1 style="font-size: 1.25rem; font-weight: 800;">
+            {{ start_date.strftime("%b %d") }} to {{ end_date.strftime("%b %d") }}
+            <br>
+            <span style="font-size: 1rem; color: #969696;">GitHub Traffic Report</span>
+        </h1>
+
+        {% with table=aggregate_table %}
+            {% include "table.html" %}
+        {% endwith %}
+
+        {% for report in repo_reports %}
+        <div style="margin-top: 4rem;">
+            <img src="{{ report.repo.avatar_url }}" style="border-radius: .25rem; float: right; height: 3.25rem; width: 3.25rem; margin-left: .5rem;">
+            <h2 style="margin-bottom: 0;"><span style="font-size: 1.25rem; font-weight: 800;">{{ report.repo.full_name }}</span> {% if report.repo.private %}(private){% endif %}</h2>
+            <div style="color: #616161;">
+                {{ report.repo.watchers_count }} watching, {{ report.repo.stargazers_count }} stars, {{ report.repo.forks_count }} forks
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+            {% with table=report.referrers_table %}
+                {% include "table.html" %}
+            {% endwith %}
+        </div>
+        <div style="margin-top: 1rem;">
+            {% with table=report.paths_table %}
+                {% include "table.html" %}
+            {% endwith %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
