@@ -193,8 +193,8 @@ def send(
     #         ),
     #     )
 
-    start_date = last_14_days[0]
-    end_date = last_14_days[-1]
+    start_date = last_14_days[-1]
+    end_date = last_14_days[0]
 
     env = jinja2.Environment(
         loader=jinja2.PackageLoader("github_traffic_report"),
