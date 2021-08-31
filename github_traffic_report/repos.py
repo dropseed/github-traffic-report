@@ -8,7 +8,6 @@ class Repo:
         self.html_url = self.data["html_url"]
         self.avatar_url = self.data["owner"]["avatar_url"]
         self.private = self.data["private"]
-        self.watchers_count = self.data["watchers_count"]
         self.forks_count = self.data["forks_count"]
         self.stargazers_count = self.data["stargazers_count"]
 
