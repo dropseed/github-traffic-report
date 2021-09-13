@@ -73,7 +73,7 @@ def send(
     previous_7_days = last_14_days_iso[:-7]
 
     repos_by_views = sorted(
-        repos, key=lambda r: r.views_on_dates(last_7_days), reverse=True
+        repos, key=lambda r: sum(r.views_on_dates(last_7_days)), reverse=True
     )
     # Remove any that don't have data
     repos_by_views = [
