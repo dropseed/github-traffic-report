@@ -11,10 +11,7 @@ jobs:
     if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' && github.head_ref == 'nextrelease' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0  # all branches and tags
-    - uses: dropseed/nextrelease@v1
+    - uses: dropseed/nextrelease@v2
       with:
         publish_cmd: |
           git tag -a v$VERSION_MAJOR -m v$VERSION_MAJOR -f && git push origin v$VERSION_MAJOR -f
