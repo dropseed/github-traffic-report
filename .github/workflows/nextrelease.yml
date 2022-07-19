@@ -13,6 +13,8 @@ jobs:
     steps:
     - uses: dropseed/nextrelease@v2
       with:
+        prepare_cmd: |
+          sed -i -e "s/version = \"[^\"]*\"$/version = \"$VERSION\"/g" pyproject.toml
         publish_cmd: |
           git tag -a v$VERSION_MAJOR -m v$VERSION_MAJOR -f && git push origin v$VERSION_MAJOR -f
         github_token: ${{ secrets.GITHUB_TOKEN }}
