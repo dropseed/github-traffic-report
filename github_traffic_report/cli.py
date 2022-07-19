@@ -73,53 +73,57 @@ def send(
     previous_7_days = last_14_days_iso[:-7]
 
     repos_by_views = sorted(
-        repos, key=lambda r: sum(r.views_on_dates(last_7_days)), reverse=True
+        repos, key=lambda r: sum(r.unique_views_on_dates(last_7_days)), reverse=True
     )
     # Remove any that don't have data
     repos_by_views = [
         x
         for x in repos_by_views
-        if any(x.views_on_dates(last_14_days_iso))
-        or any(x.clones_on_dates(last_14_days_iso))
+        if any(x.unique_views_on_dates(last_14_days_iso))
+        or any(x.unique_clones_on_dates(last_14_days_iso))
     ]
 
     table = Table()
-    table.headers = ["Repo", "Views (unique)", "Clones (unique)"]
+    table.headers = ["Repo", "Visitors (views)", "Cloners (clones)"]
     table.subheader = "Last 7 days"
 
     for repo in repos_by_views:
-        views_this_week = sum(repo.views_on_dates(last_7_days))
-        clones_this_week = sum(repo.clones_on_dates(last_7_days))
-        views_last_week = sum(repo.views_on_dates(previous_7_days))
-        clones_last_week = sum(repo.clones_on_dates(previous_7_days))
+        unique_views_this_week = sum(repo.unique_views_on_dates(last_7_days))
+        unique_clones_this_week = sum(repo.unique_clones_on_dates(last_7_days))
 
-        if not views_this_week and not clones_this_week:
+        unique_views_last_week = sum(repo.unique_views_on_dates(previous_7_days))
+        unique_clones_last_week = sum(repo.unique_clones_on_dates(previous_7_days))
+
+        if not unique_views_this_week and not unique_clones_this_week:
             # Don't need to show inactive rows on the table
             continue
 
-        if views_this_week > views_last_week:
+        if unique_views_this_week > unique_views_last_week:
             views_change = Cell.INCREASE
-        elif views_this_week < views_last_week:
+        elif unique_views_this_week < unique_views_last_week:
             views_change = Cell.DECREASE
         else:
             views_change = Cell.UNCHANGED
 
-        if clones_this_week > clones_last_week:
+        if unique_clones_this_week > unique_clones_last_week:
             clones_change = Cell.INCREASE
-        elif clones_this_week < clones_last_week:
+        elif unique_clones_this_week < unique_clones_last_week:
             clones_change = Cell.DECREASE
         else:
             clones_change = Cell.UNCHANGED
+
+        views_this_week = sum(repo.views_on_dates(last_7_days))
+        clones_this_week = sum(repo.clones_on_dates(last_7_days))
 
         table.rows.append(
             [
                 Cell(repo.full_name, None, url=repo.html_url),
                 Cell(
-                    f"{views_this_week} ({sum(repo.unique_views_on_dates(last_7_days))})",
+                    f"{unique_views_this_week} ({views_this_week})",
                     views_change,
                 ),
                 Cell(
-                    f"{clones_this_week} ({sum(repo.unique_clones_on_dates(last_7_days))})",
+                    f"{unique_clones_this_week} ({clones_this_week})",
                     clones_change,
                 ),
             ]
@@ -130,7 +134,7 @@ def send(
     repo_reports = []
     for repo in repos_by_views:
         paths_table = Table()
-        paths_table.headers = ["Path", "Views", "Unique visitors"]
+        paths_table.headers = ["Path", "Unique visitors", "Views"]
         paths_table.subheader = "Last 14 days"
         for path_data in repo.paths_data:
             paths_table.rows.append(
@@ -138,13 +142,13 @@ def send(
                     Cell(
                         path_data["title"], url="https://github.com" + path_data["path"]
                     ),
-                    str(path_data["count"]),
                     str(path_data["uniques"]),
+                    str(path_data["count"]),
                 ]
             )
 
         referrers_table = Table()
-        referrers_table.headers = ["Referrer", "Views", "Unique visitors"]
+        referrers_table.headers = ["Referrer", "Unique visitors", "Views"]
         referrers_table.subheader = "Last 14 days"
         for referrer_data in repo.referrers_data:
             referrers_table.rows.append(
@@ -153,8 +157,8 @@ def send(
                         referrer_data["referrer"],
                         url=f"https://github.com/{repo.full_name}/graphs/traffic?referrer={referrer_data['referrer']}#top-domains",
                     ),
-                    str(referrer_data["count"]),
                     str(referrer_data["uniques"]),
+                    str(referrer_data["count"]),
                 ]
             )
 
