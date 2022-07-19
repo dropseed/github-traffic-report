@@ -133,6 +133,7 @@ def send(
 
     repo_reports = []
     for repo in repos_by_views:
+        repo_has_data = False
         paths_table = Table()
         paths_table.headers = ["Path", "Unique visitors", "Views"]
         paths_table.subheader = "Last 14 days"
@@ -146,6 +147,8 @@ def send(
                     str(path_data["count"]),
                 ]
             )
+            if path_data["uniques"] > 0:
+                repo_has_data = True
 
         referrers_table = Table()
         referrers_table.headers = ["Referrer", "Unique visitors", "Views"]
@@ -161,6 +164,8 @@ def send(
                     str(referrer_data["count"]),
                 ]
             )
+            if referrer_data["uniques"] > 0:
+                repo_has_data = True
 
         # repo_chart = Chart()
         # repo_chart.fig.add_trace(
@@ -178,14 +183,15 @@ def send(
         #     ),
         # )
 
-        repo_reports.append(
-            {
-                "repo": repo,
-                # "chart": repo_chart.to_base64(height=200),
-                "paths_table": paths_table,
-                "referrers_table": referrers_table,
-            }
-        )
+        if repo_has_data:
+            repo_reports.append(
+                {
+                    "repo": repo,
+                    # "chart": repo_chart.to_base64(height=200),
+                    "paths_table": paths_table,
+                    "referrers_table": referrers_table,
+                }
+            )
 
     # aggregate_chart = Chart()
     # for repo in repos_by_views:
