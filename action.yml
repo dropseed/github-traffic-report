@@ -31,16 +31,17 @@ inputs:
     default: "org:${{ github.repository.owner }} is:public"
     required: false
 runs:
-  using: docker
-  image: Dockerfile
-  args:
-    - send
-    - ${{ inputs.repo_query }}
-  env:
-    GITHUB_TOKEN: ${{ inputs.github_token }}
-    REPORT_TO: ${{ inputs.to_email }}
-    REPORT_SMTP_FROM: ${{ inputs.smtp_from }}
-    REPORT_SMTP_HOST: ${{ inputs.smtp_host }}
-    REPORT_SMTP_PORT: ${{ inputs.smtp_port }}
-    REPORT_SMTP_USERNAME: ${{ inputs.smtp_username }}
-    REPORT_SMTP_PASSWORD: ${{ inputs.smtp_password }}
+  using: composite
+  steps:
+  - run: pip3 install $GITHUB_ACTION_PATH
+    shell: bash
+  - run: github-traffic-report send ${{ inputs.repo_query }}
+    shell: bash
+    env:
+      GITHUB_TOKEN: ${{ inputs.github_token }}
+      REPORT_TO: ${{ inputs.to_email }}
+      REPORT_SMTP_FROM: ${{ inputs.smtp_from }}
+      REPORT_SMTP_HOST: ${{ inputs.smtp_host }}
+      REPORT_SMTP_PORT: ${{ inputs.smtp_port }}
+      REPORT_SMTP_USERNAME: ${{ inputs.smtp_username }}
+      REPORT_SMTP_PASSWORD: ${{ inputs.smtp_password }}
